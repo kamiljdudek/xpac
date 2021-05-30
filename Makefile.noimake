@@ -1,0 +1,16 @@
+# make file for xpede (c) 1996 Peter Warden
+
+LIBS = X11
+
+CC = gcc
+
+PGM = xpacman
+
+${PGM}: ${OBJS}
+	rm -f $@
+	${CC} -s ${PGM}.c -o $@ -l${LIBS}
+
+clean:
+	rm -f ${OBJS}
+	rm -fi ${PGM}
+
