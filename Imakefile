@@ -1,5 +1,0 @@
-XCOMM Imakefile for xpacman
-
-LOCAL_LIBRARIES = $(XLIB)
-
-SimpleProgramTarget(xpacman)

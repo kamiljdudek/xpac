@@ -1,6 +1,10 @@
 /*
  * Copyright 1996 P. Warden (wardenp@cs.man.ac.uk)
  * This software may be freely copied and used, but no warranty is given
+ *
+ * The statement above is compatible with the licence established
+ * by the new maintainer: MIT Licence. See the LICENCE file.
+ *
  */
 /* include files *********************************************************/
 
@@ -915,7 +919,7 @@ void maze_draw(int sx,int sy,int ex,int ey) {
 
 }
 
-void draw_maze_point(int x,int y,enum dtype value) {
+void draw_maze_point(int x, int y, enum mtype value) {
 
   *(map+(x*height)+y)=value;
   *(map+((width-1-x)*height)+y)=value;
