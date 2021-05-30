@@ -19,9 +19,9 @@
                 GZ = /usr/bin/gzip
 
 
-${PGM}: ${OBJS}
+${PGM}:
 	$(RM) $@
-	$(CC) $(CFLAGS) ${PGM}.c -o $@ -l${LIBS}
+	$(CC) $(CFLAGS) $(PGM).c -o $@ -l$(LIBS)
 	
 debug:
 	$(CC) $(CDEBUGFLAGS) $(PGM).c -o $(PGM) -l$(LIBS)
