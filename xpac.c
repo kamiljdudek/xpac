@@ -6,6 +6,7 @@
  * by the new maintainer: MIT Licence. See the LICENCE file.
  *
  */
+ 
 /* include files *********************************************************/
 
 /* include the files needed for Xlib */
@@ -18,6 +19,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+
+#include <ctype.h>
 
 /* definitions and enumerations ******************************************/
 
@@ -89,7 +92,7 @@ void draw_y_line(XImage *,int,int,int,int);
 void update_image_from_map(Window ,GC),update_image(Window, GC);
 void setup_map_memory(void),free_memory(void),print_usage(void);
 void reset_display_map(void),setup_maze(void);
-void maze_draw(int,int,int,int),draw_maze_point(int,int,enum mtype);
+void maze_draw(int,int,int,int),draw_maze_point(int,int,enum dtype);
 void draw_maze_edges(void),draw_x_line(XImage *,int,int,int,int);
 void setup_pill(XImage *),add_pills(int,int),setup_pacmen(void);
 void setup_pacmanu(void),setup_pacman(XImage *),plot_pacman(Window,GC);
@@ -209,9 +212,8 @@ int main(int argc, char *argv[]) {
   int rate=15;
   int wait;
 
-  struct timeval newt,oldt;
-  struct timezone dontcare;
-  int newtval,oldtval;
+  struct timeval newt, oldt;
+  int newtval, oldtval;
 
   enum optnum { WIDTH, HEIGHT, LEFTKEY, RIGHTKEY, UPKEY, DOWNKEY, QUITKEY,
   LEVEL, FRAMERATE };
@@ -306,8 +308,9 @@ CHAR,CHAR,NUM,NUM };
   wait=1000/rate;
 
   window_title=malloc(sizeof(char)*256);
+  sprintf(window_title, "xpac") ; 
 
-  sprintf(window_title,"XPacman-%c up %c down %c left %c right %c quit use -slow to adjust speed\0",upkey,downkey,leftkey,rightkey,quitkey);
+  printf("Use %c up %c down %c left %c right %c quit \n",upkey,downkey,leftkey,rightkey,quitkey);
    
   /* connect to the X server, or report an error if not possible */
   if ((display=XOpenDisplay(display_name))==NULL) {
@@ -382,7 +385,7 @@ CHAR,CHAR,NUM,NUM };
   while (True) {
 
   /* reset timing counter */
-    if (gettimeofday(&oldt,&dontcare)!=0) {
+    if (gettimeofday(&oldt, NULL)!=0) {
       fprintf(stderr,"%s: Problem with gettimeofday()!\n",pname);
       exit(1);
     }
@@ -479,7 +482,7 @@ CHAR,CHAR,NUM,NUM };
 
       /* no more events to process */
 
-      if (gettimeofday(&newt,&dontcare)!=0) {
+      if (gettimeofday(&newt, NULL)!=0) {
         fprintf(stderr,"%s: Problem with gettimeofday()!\n",pname);
         exit(1);
       }
@@ -789,7 +792,7 @@ void update_image_eat(Window win,GC gc) {
 void setup_map_memory(void) {
  
   map=(enum mtype *) malloc(sizeof(enum mtype)*width*height);
-  dmap=(enum rtype *) malloc(sizeof(enum rtype)*width*height);
+  dmap=(enum mtype *) malloc(sizeof(enum mtype)*width*height);
 
   if ((map==NULL) || (dmap==NULL)) {
     (void) fprintf(stderr,"%s: Unable to allocate needed memory.\n",pname);
@@ -919,7 +922,7 @@ void maze_draw(int sx,int sy,int ex,int ey) {
 
 }
 
-void draw_maze_point(int x, int y, enum mtype value) {
+void draw_maze_point(int x,int y,enum dtype value) {
 
   *(map+(x*height)+y)=value;
   *(map+((width-1-x)*height)+y)=value;
@@ -1609,7 +1612,7 @@ void update_ghosts_eat(void) {
 
 }
 
-int valid_position(nx,ny) {
+int valid_position(int nx, int ny) {
 
   enum mtype a,b,c,d;
   int x,y;
@@ -1646,7 +1649,7 @@ void init_game(void) {
 
 }
 
-int test_collide(ax,ay,bx,by) {
+int test_collide(int ax, int ay, int bx,int by) {
 
   return (((bx-ax)>-15)&&((bx-ax)<15)&&((by-ay)>-15)&&((by-ay)<15));
 
