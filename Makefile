@@ -6,8 +6,8 @@
            INSTALL = /usr/bin/install
              MANDB = /usr/bin/mandb
         MANDBFLAGS = -p
-      INSTALLFLAGS = -g 0 -o 0 -m 644
-      INSTPGMFLAGS = -s -g 0 -o 0 -m 755
+      INSTALLFLAGS = -D -g 0 -o 0 -m 644
+      INSTPGMFLAGS = -D -s -g 0 -o 0 -m 755
            DESTDIR = /usr/local/bin/
         MANDESTDIR = /usr/local/share/man/man6/
 
@@ -15,8 +15,9 @@
             CFLAGS = -O3 -s
        CDEBUGFLAGS = -O0 -g -std=iso9899:2017
 
-                RM = rm -f
+                RM = /usr/bin/rm -f
                 GZ = /usr/bin/gzip
+             MKDIR = /usr/bin/mkdir -p
 
 
 ${PGM}:
@@ -32,9 +33,11 @@ clean:
 
 install:
 	$(GZ) -c $(PGM).6 > $(PGM).6.gz
-	$(INSTALL) $(INSTALLFLAGS) $(PGM).6.gz $(MANDESTDIR)$(PGM).6.gz
+	$(MKDIR) $(MANDESTDIR)
+	$(INSTALL) $(INSTALLFLAGS) $(PGM).6.gz $(MANDESTDIR)
 	$(MANDB) $(MANDBFLAGS)
-	$(INSTALL) $(INSTPGMFLAGS) $(PGM) $(DESTDIR)$(PGM)
+	$(MKDIR) $(DESTDIR)
+	$(INSTALL) $(INSTPGMFLAGS) $(PGM) $(DESTDIR)
 	
 uninstall:
 	$(RM) $(DESTDIR)$(PGM)
