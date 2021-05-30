@@ -1,6 +1,6 @@
 Name:           xpac
 Version:        0.12
-Release:        1
+Release:        2
 Summary:        xpac - a vintage clone of Pac-Man™
 Group:          Games
 License:        MIT
@@ -11,6 +11,8 @@ Source:         xpac-0.12.tar.xz
 Prefix:         %{_prefix}
 Packager: 	Kamil J. Dudek
 BuildRoot:      %{_tmppath}/%{name}-root
+
+Requires:       xorg-x11-fonts-misc
 
 %description
 This is a basic version of pacman. I've tried to concentrate on the essentials
