@@ -1,0 +1,72 @@
+.\" xpac.6
+.\"
+.TH man 6 "2021-05-30" "Version 0.12" "xpac man page"
+.SH NAME
+xpac - a vintage clone of Pac-Man™
+.SH SYNOPSIS 
+.B "xpac"
+[\fB-upkey key\fR] 
+[\fB-downkey key\fR]
+[\fB-leftkey key\fR]
+[\fB-rightkey key\fR]
+[\fB-quitkey key\fR]
+[\fB-framerate num\fR]
+[\fB-level num\fR]
+[\fB-width units\fR]
+[\fB-height units\fR]
+.SH DESCRIPTION
+.PP
+.I xpac
+- as described by its original author, Peter Warden:
+.PP
+This is a basic version of pacman. I've tried to concentrate on the essentials
+of the game for now, which means a lot of the original features are absent (ie
+no scores, no fruit, no special items, no lives). When all the pills have been 
+cleared from a level, the difficulty level is notched up, and a new level is
+generated. If you collide with a ghost, all the pills are replaced, and you
+restart the current level from scratch. A new feature just added is the
+presence of large red pills that for a short time turn the ghosts grey and let
+you eat them.
+.PP
+Steering is performed via the WASD keys.
+
+.SH OPTIONS
+.PP
+.TP 8
+
+.IP "\fB-upkey key\fR"
+To set the up key
+.IP "\fB-downkey key\fR"
+To set the down key
+.IP "\fB-leftkey key\fR"
+To set the left key
+.IP "\fB-rightkey key\fR"
+To set the right key
+.IP "\fB-quitkey key\fR"
+To set the quit key
+.IP "\fB-framerate num\fR"
+To set the maximum number of frames that will be displayed per second, so
+altering the games speed (default is 15).
+.IP "\fB-level num\fR"
+To set difficulty level (default is 0).
+.IP "\fB-width units\fR"
+To specify the width of the playing area, in 16 pixel units (default is 33).
+.IP "\fB-height units\fR"
+To specify the height of the playing area, in 16 pixel units (default is 33).
+
+.SH AUTHOR
+Peter Warden (wardenp@cs.man.ac.uk)
+
+.SH LICENCE
+Absolutely no warranty is given for this program.
+.PP
+Copyright 1996 P. Warden (wardenp@cs.man.ac.uk)
+This software may be freely copied and used, but no warranty is given
+.PP
+MIT License -- Copyright (c) 2021 Kamil J. Dudek
+
+.SH THANKS
+"My thanks go to Danny Backx, Garland Stern, Larry Schwimmer, Oeyvind Roetvold
+and everybody else who's given their time and expertise to help me improve this
+project." -- Peter Warden
+

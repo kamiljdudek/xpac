@@ -7,6 +7,8 @@
  *
  */
  
+ #define VERSION "0.12"
+ 
 /* include files *********************************************************/
 
 /* include the files needed for Xlib */
@@ -207,7 +209,7 @@ int main(int argc, char *argv[]) {
   KeySym key; /* key symbol for decoding key events */
   XComposeStatus compose; /* needed for decoding key events */
   /* player`s keys */
-  char upkey='\'',rightkey='z',downkey='/',leftkey='x',quitkey='q'; 
+  char upkey='w',leftkey='a',downkey='s',rightkey='d',quitkey='q'; 
   int count; /* counter for arg parsing loop */
   int rate=15;
   int wait;
@@ -227,8 +229,8 @@ CHAR,CHAR,NUM,NUM };
 
   optadr[WIDTH].intptr=&width;
   optadr[HEIGHT].intptr=&height;
-  optadr[LEFTKEY].charptr=&leftkey;
   optadr[RIGHTKEY].charptr=&rightkey;
+  optadr[LEFTKEY].charptr=&leftkey;
   optadr[UPKEY].charptr=&upkey;
   optadr[DOWNKEY].charptr=&downkey;
   optadr[QUITKEY].charptr=&quitkey;
@@ -308,9 +310,9 @@ CHAR,CHAR,NUM,NUM };
   wait=1000/rate;
 
   window_title=malloc(sizeof(char)*256);
-  sprintf(window_title, "xpac") ; 
+  sprintf(window_title, "xpac " VERSION) ; 
 
-  printf("Use %c up %c down %c left %c right %c quit \n",upkey,downkey,leftkey,rightkey,quitkey);
+  printf("xpac " VERSION "\nUse %c up %c down %c left %c right %c quit \n",upkey,downkey,rightkey,leftkey,quitkey);
    
   /* connect to the X server, or report an error if not possible */
   if ((display=XOpenDisplay(display_name))==NULL) {
@@ -454,9 +456,9 @@ CHAR,CHAR,NUM,NUM };
             XLookupString(&(event.xkey),buffer,bufsize,&key,&compose);
 
             if (tolower(buffer[0])==upkey) newdir=UP;
-            if (tolower(buffer[0])==rightkey) newdir=RIGHT;
+            if (tolower(buffer[0])==leftkey) newdir=RIGHT;
             if (tolower(buffer[0])==downkey) newdir=DOWN;
-            if (tolower(buffer[0])==leftkey) newdir=LEFT;
+            if (tolower(buffer[0])==rightkey) newdir=LEFT;
 
             /* quit if it's the quit key */
             if (tolower(buffer[0])==quitkey) {
