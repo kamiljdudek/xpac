@@ -11,7 +11,6 @@ for git, build and packaging.
 
 * `orig` contains the original source, fixed only to build itself
 * `main` is the upstream by the new maintainer
-* `rpm` pulls from main to create a Fedora RPM package
 
 ## Links
 
@@ -25,7 +24,14 @@ git clone git@github.com:kamiljdudek/xpac
 cd xpac
 make
 sudo make install
-xpacman
+xpac
 
 ```
 
+## TODO
+* `configure` script
+* `.desktop` menu shortcut files
+* `debuginfo` package
+* Translations
+* Icon pixmap
+* Remove all implicit casts

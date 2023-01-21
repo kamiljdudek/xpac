@@ -1,6 +1,6 @@
 Name:           xpac
 Version:        %{_version}
-Release:        2
+Release:        3
 Summary:        xpac - a vintage clone of Pac-Man™
 Group:          Games
 License:        MIT
@@ -28,8 +28,6 @@ restart the current level from scratch. A new feature just added is the
 presence of large red pills that for a short time turn the ghosts grey and let
 you eat them.
 
-#%global debug_package %{nil}
-
 %prep
 %setup -q -n %{name}
 
@@ -50,5 +48,7 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/doc/%{name}
 /usr/share/man/man6/xpac.6.gz
 
 %changelog
+* Sat Jan 21 2023 Kamil J. Dudek - 0.13-3
+- Started counting
 
 

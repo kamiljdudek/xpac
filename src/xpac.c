@@ -2,8 +2,8 @@
  * Copyright 1996 P. Warden (wardenp@cs.man.ac.uk)
  * This software may be freely copied and used, but no warranty is given
  *
- * The statement above is compatible with the licence established
- * by the new maintainer: MIT Licence. See the LICENCE file.
+ * The statement above is compatible with the license established
+ * by the new maintainer: MIT License. See the COPYING file.
  *
  */
  

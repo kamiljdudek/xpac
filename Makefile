@@ -24,6 +24,7 @@
              MKDIR = /bin/mkdir -p
 
             RPMBLD = /usr/bin/rpmbuild
+           RPMDEFS = --define '_topdir $(CURDIR)/rpmbuild' --define '_version $(VERSION)'
                TAR = /bin/tar
 
 
@@ -35,7 +36,7 @@ dist:
 	$(RM) $(PGM)
 	$(CC) $(CFLAGS) src/$(PGM).c -o $(PGM) -l$(LIBS)
 	$(GZ) -c docs/$(PGM).6 > docs/$(PGM).6.gz
-	$(TAR) -cJf $(PGM)-$(VERSION).tar.xz -C .. $(PGM)/$(PGM) $(PGM)/LICENSE $(PGM)/docs/$(PGM).6.gz
+	$(TAR) -cJf $(PGM)-$(VERSION).tar.xz -C .. $(PGM)/$(PGM) $(PGM)/COPYING $(PGM)/docs/$(PGM).6.gz
 	$(RM) $(PGM)
 	$(RM) docs/$(PGM).6.gz
 	
@@ -43,13 +44,15 @@ debug:
 	$(CC) $(CDEBUGFLAGS) src/$(PGM).c -o $(PGM) -l$(LIBS)
 
 rpm:
-	$(MKDIR) $(CURDIR)/rpmbuild/SOURCES
-	$(TAR) -cJf $(CURDIR)/rpmbuild/SOURCES/$(PGM)-$(VERSION).tar.xz -C .. $(PGM)/src $(PGM)/docs $(PGM)/LICENSE $(PGM)/Makefile
-	$(RPMBLD) --verbose --define '_topdir $(CURDIR)/rpmbuild' --define '_version $(VERSION)' -ba xpac.spec
+	$(TAR) -cJf $(CURDIR)/rpmbuild/SOURCES/$(PGM)-$(VERSION).tar.xz -C .. $(PGM)/src $(PGM)/docs $(PGM)/COPYING $(PGM)/Makefile
+	$(RPMBLD) --nodebuginfo $(RPMDEFS) -ba rpmbuild/SPECS/$(PGM).spec
 
 clean:
 	$(RM) $(PGM)
-	$(RM) -r rpmbuild
+	$(RM) -r rpmbuild/BUILD
+	$(RM) -r rpmbuild/BUILDROOT
+	$(RM) -r rpmbuild/RPMS
+	$(RM) -r rpmbuild/SRPMS
 	$(RM) $(PGM).6.gz
 	$(RM) $(PGM)-$(VERSION).tar.xz
 
