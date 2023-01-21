@@ -7,7 +7,7 @@
  *
  */
  
-#define VERSION "0.12"
+#define VERSION "0.13"
  
 /* include files *********************************************************/
 
@@ -256,10 +256,17 @@ CHAR,CHAR,NUM,NUM };
 
           case NUM :
             if (sscanf(argv[clarg],"-%*[A-Za-z]%d",optadr[count].intptr)==EOF)
-            if (clarg+1<argc)
-            if (sscanf(argv[clarg+1],"%d",optadr[count].intptr)!=EOF) clarg++;
-            else printf("No value found for option %s\n",clargstr);
-            else printf("No value found for option %s\n",clargstr);
+			{
+				if (clarg+1<argc)
+				{
+					if (sscanf(argv[clarg+1],"%d",optadr[count].intptr)!=EOF)
+						{ clarg++; }
+					else
+						{ printf("No value found for option %s\n",clargstr); }
+				}
+				else
+					{ printf("No value found for option %s\n",clargstr); }
+			}
             break;
 
           case STR :
@@ -825,11 +832,11 @@ void print_usage(void) {
 
 void setup_maze(void) {
 
-  int cx,cy,x,y,w,h,p;
+  int x, y;
 
   for (x=0; x<width; x++) {
     for (y=0; y<height; y++) {
-      *(map+(x*height)+y)=WALL;
+      *(map + (x*height) + y) = WALL;
     }
    }
 
@@ -1080,8 +1087,6 @@ void plot_pacman(Window win, GC gc) {
 
   XImage *plotimage;
 
-  int x,y;
-
   switch (pacdir) {
 
     case UP: switch (((pacpos.x+pacpos.y)/4)%4) {
@@ -1119,6 +1124,8 @@ void plot_pacman(Window win, GC gc) {
       case 3: plotimage=pacmanr1; break;
 
     } break;
+	
+	default: break;
 
   }
 
@@ -1160,6 +1167,20 @@ void update_game(void) {
   if (pillnum<=0) gamestate|=NEWLEVEL;
 
   if (test_ghost_collide()) {  gamestate|=START; }
+
+}
+
+int which_ghost_collide(void) {
+
+  int c;
+
+  for (c=0; c<ghostnum; c++) {
+
+    if ((ghosts[c].dir!=DEAD) &&(test_collide(pacpos.x,pacpos.y,ghosts[c].x,ghosts[c].y))) return c;
+
+  }
+
+  return -1;
 
 }
 
@@ -1212,6 +1233,7 @@ struct point newpacpos() {
     case LEFT: newpos.x+=4; break;
     case DOWN: newpos.y+=4; break;
     case RIGHT: newpos.x-=4; break;
+	default: break;
 
   }
 
@@ -1433,6 +1455,7 @@ struct point newghostpos_eat(struct ghostinfo ghost) {
     case LEFT: newpos.x+=2; break;
     case DOWN: newpos.y+=2; break;
     case RIGHT: newpos.x-=2; break;
+	default: break;
 
   }
 
@@ -1456,6 +1479,7 @@ struct point newghostpos(struct ghostinfo ghost) {
     case LEFT: newpos.x+=4; break;
     case DOWN: newpos.y+=4; break;
     case RIGHT: newpos.x-=4; break;
+	default: break;
 
   }
 
@@ -1668,20 +1692,6 @@ int test_ghost_collide(void) {
   }
 
   return False;
-
-}
-
-int which_ghost_collide(void) {
-
-  int c;
-
-  for (c=0; c<ghostnum; c++) {
-
-    if ((ghosts[c].dir!=DEAD) &&(test_collide(pacpos.x,pacpos.y,ghosts[c].x,ghosts[c].y))) return c;
-
-  }
-
-  return -1;
 
 }
 

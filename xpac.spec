@@ -1,18 +1,22 @@
 Name:           xpac
-Version:        0.12
+Version:        %{_version}
 Release:        2
 Summary:        xpac - a vintage clone of Pac-Man™
 Group:          Games
 License:        MIT
 URL:            https://github.com/kamiljdudek/xpac
 Vendor:         Kamil J. Dudek
-Source:         xpac-0.12.tar.xz
+Source:         xpac-%{_version}.tar.xz
 
 Prefix:         %{_prefix}
-Packager: 	Kamil J. Dudek
+Packager:       Kamil J. Dudek
 BuildRoot:      %{_tmppath}/%{name}-root
 
+BuildRequires:  libX11-devel xorg-x11-proto-devel
+BuildRequires:  gcc >= 10.0
+BuildRequires:  man-db
 Requires:       xorg-x11-fonts-misc
+Requires:       libXau
 
 %description
 This is a basic version of pacman. I've tried to concentrate on the essentials
@@ -24,10 +28,10 @@ restart the current level from scratch. A new feature just added is the
 presence of large red pills that for a short time turn the ghosts grey and let
 you eat them.
 
-%global debug_package %{nil}
+#%global debug_package %{nil}
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q -n %{name}
 
 %build
 make
