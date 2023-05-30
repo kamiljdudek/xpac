@@ -323,8 +323,8 @@ CHAR,CHAR,NUM,NUM };
    
   /* connect to the X server, or report an error if not possible */
   if ((display=XOpenDisplay(display_name))==NULL) {
-    (void) fprintf(stderr,"%s: can't connect to X server %s.\n",
-    pname,display_name);
+    (void) fprintf(stderr,"%s: can't connect to X server.\n",
+    pname);
     exit(0); }
 
   /* get screen number */
