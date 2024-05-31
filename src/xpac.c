@@ -94,7 +94,7 @@ void draw_y_line(XImage *,int,int,int,int);
 void update_image_from_map(Window ,GC),update_image(Window, GC);
 void setup_map_memory(void),free_memory(void),print_usage(void);
 void reset_display_map(void),setup_maze(void);
-void maze_draw(int,int,int,int),draw_maze_point(int,int,enum dtype);
+void maze_draw(int,int,int,int),draw_maze_point(int,int,enum mtype);
 void draw_maze_edges(void),draw_x_line(XImage *,int,int,int,int);
 void setup_pill(XImage *),add_pills(int,int),setup_pacmen(void);
 void setup_pacmanu(void),setup_pacman(XImage *),plot_pacman(Window,GC);
@@ -144,7 +144,7 @@ char *emptyd,*walld,*pilld,*pacmanu2d,*pacmanu1d,*pacmanu0d,*pacmanr2d,
 enum mtype *map;
 
 /* pointer to map used for display purposes, & which bank is currently used */
-enum mtype *dmap;
+enum rtype *dmap;
 int cdmap;
 
 /* bit depth all graphics are to be created in */
@@ -801,7 +801,7 @@ void update_image_eat(Window win,GC gc) {
 void setup_map_memory(void) {
  
   map=(enum mtype *) malloc(sizeof(enum mtype)*width*height);
-  dmap=(enum mtype *) malloc(sizeof(enum mtype)*width*height);
+  dmap=(enum rtype *) malloc(sizeof(enum rtype)*width*height);
 
   if ((map==NULL) || (dmap==NULL)) {
     (void) fprintf(stderr,"%s: Unable to allocate needed memory.\n",pname);
@@ -931,7 +931,7 @@ void maze_draw(int sx,int sy,int ex,int ey) {
 
 }
 
-void draw_maze_point(int x,int y,enum dtype value) {
+void draw_maze_point(int x,int y,enum mtype value) {
 
   *(map+(x*height)+y)=value;
   *(map+((width-1-x)*height)+y)=value;
