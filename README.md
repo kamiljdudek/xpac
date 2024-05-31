@@ -34,4 +34,4 @@ xpac
 * `debuginfo` package
 * Translations
 * Icon pixmap
-* Remove all implicit casts
+* ~~Remove all implicit casts~~
