@@ -23,3 +23,8 @@ jobs:
       run: make
     - name: make dist
       run: make dist
+    - name: archive artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: TAR
+        path: ./*.tar.xz
