@@ -18,7 +18,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: deps
-      run: apt-get update && apt-get install libx11-dev
+      run: sudo apt-get -y update && sudo apt-get -y install libx11-dev
     - name: make
       run: make
     - name: make dist
