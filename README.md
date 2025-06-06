@@ -20,6 +20,7 @@ Downloaded from [Original Source Mirror](https://www.ibiblio.org/pub/Linux/games
 Some forms of X11, CC and make are required. Other than that, just go:
 
 ```
+#
 git clone git@github.com:kamiljdudek/xpac
 cd xpac
 make
