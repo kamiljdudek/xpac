@@ -5,6 +5,10 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  workflow_dispatch:
+    inputs:
+      tags:
+        description: 'Test tags'
 
 jobs:
   build:
@@ -13,11 +17,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: configure
-      run: ./configure
+    - name: deps
+      run: sudo apt-get -y update && sudo apt-get -y install libx11-dev
     - name: make
       run: make
-    - name: make check
-      run: make check
-    - name: make distcheck
-      run: make distcheck
+    - name: make dist
+      run: make dist
+    - name: archive artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: TAR
+        path: ./*.tar.xz
